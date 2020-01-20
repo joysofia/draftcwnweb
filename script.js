@@ -1,12 +1,24 @@
+var testdata={
+  word:"",
+}
+
+var vmtest= new Vue({
+  el: "#test",
+  data: testdata
+});
+
+var wordapiurl='http://140.112.147.120:5201/search/^'+ testdata.word + '$'
+
+
 // 查詢_api 網址
 var apiurl={
-  itemdata: "http://140.112.147.120:5201/search/%E8%A9%9E",
-  itemsdata: "https://awiclass.monoame.com/api/command.php?type=get&name=itemdata"
+  itemdata: "http://140.112.147.120:5201/search/%5E%E8%A9%9E$",
+  sensesdata: "http://140.112.147.120:5201/senses/067465"
 };
 
-// 呈現查詢的資料
-var vmshow= new Vue({
-  el: "#appshow",
+// 呈現查詢的lemma資料
+var vm_lemma= new Vue({
+  el: "#app_lemma",
   data: {
     items: []
   }
@@ -15,7 +27,22 @@ var vmshow= new Vue({
 $.ajax({
   url: apiurl.itemdata,
   success: function(res){
-    vmshow.items=(res);
+    vm_lemma.items=(res);
+  }
+});
+
+// 呈現查詢的sense資料
+var vm_sense= new Vue({
+  el: "#app_sense",
+  data: {
+    senses: []
+  }
+});
+
+$.ajax({
+  url: apiurl.sensesdata,
+  success: function(res){
+    vm_sense.senses=(res);
   }
 });
 
