@@ -1,15 +1,22 @@
-var testdata={
-  word:"",
-}
-
+// 查詢功能 還沒成功ＸＰ
 var vmtest= new Vue({
   el: "#test",
-  data: testdata
+  data: {
+    word: "",
+    items: []
+  }
 });
 
-var wordapiurl='http://140.112.147.120:5201/search/^'+ testdata.word + '$'
+const wordapiurl=`http://140.112.147.120:5201/search/^${this.word}$`
 
+$.ajax({
+  url: wordapiurl,
+  success: function(res){
+    vmtest.items=(res);
+  }
+});
 
+// 查詢前就會出現的資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // 查詢_api 網址
 var apiurl={
   itemdata: "http://140.112.147.120:5201/search/%5E%E8%A9%9E$",
@@ -35,7 +42,8 @@ $.ajax({
 var vm_sense= new Vue({
   el: "#app_sense",
   data: {
-    senses: []
+    senses: [],
+    examples: []
   }
 });
 
