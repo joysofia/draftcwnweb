@@ -3,18 +3,50 @@ var vmtest= new Vue({
   el: "#test",
   data: {
     word: "",
-    items: []
+    items: [],
+    sensedata: []
   }
 });
 
-const wordapiurl=`http://140.112.147.120:5201/search/^${this.word}$`
+$("#search").click(function(){
+  const inputword = $("#inputword").val(); 
+  const wordurl="http://140.112.147.120:5201/search/^"+ inputword + "$";
+  console.log(inputword);
+  console.log(wordurl);
+  // 取得 lemma 資料
+  $.ajax({
+    url: wordurl,
+    success: function(res){
+      vmtest.items=(res);
+      console.log(vmtest.items.length);
+      var senseid = vmtest.items[0].id;
+      console.log(senseid);
+      const senseidurl = "http://140.112.147.120:5201/senses/" + senseid ;
+      console.log(senseidurl);
+      $.ajax({
+        url: senseidurl,
+        success: function(datagot){
+          vmtest.sensedata=(datagot);
+        }
+      });
+    }
+  });
+  
 
-$.ajax({
-  url: wordapiurl,
-  success: function(res){
-    vmtest.items=(res);
-  }
-});
+  
+  // 取得 sense 資料
+
+})
+
+
+const wordapiurl="http://140.112.147.120:5201/search/^"+ inputword + "$"
+console.log(wordapiurl);
+
+
+
+
+
+
 
 // 查詢前就會出現的資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // 查詢_api 網址

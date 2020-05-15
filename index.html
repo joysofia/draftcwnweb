@@ -235,16 +235,44 @@ body, html {
   <h3 class="w3-center">線上查詢</h3>
   <p class="w3-large w3-center">輸入字詞並閱覽查詢結果</p>
     <div class="w3-section w3-row-padding w3-center w3-text" id="test">
-      <input v-bind="word"/>
-      <label class="i fas fa-search"></label>
-    <h3>剛才輸入的詞：{{word}}</h3>
+      <input id="inputword" type="text" v-model="word"/>
+      <label id="search" class="i fas fa-search"></label>
+    <h3 >剛才輸入的詞： {{ word }}</h3>
+  <div class="w3-col">  
     <h4>新資料</h4>
       <div class="w3-col w3-xxlarge w3-border w3-round-large w3-padding-large" v-for="item in items" >{{item.lemma}}
         <div class="w3-medium">{{item.zhuyin}}</div>
       </div>
+      <div class="w3-col" v-for="sense in sensedata">
+        <div class="w3-col w3-padding-large" >
+          <div class="w3-col">
+          <h4>釋義 {{sensedata.indexOf(sense)+1}}</h4> 
+            [ {{sense.pos}} ]  
+            {{sense.def}}
+          <h4>例句</h4>
+            <ol>
+              <li v-for="example in sense.examples">{{example}}</li>
+            </ol>
+            <p v-if="sense.relations.hypernym">上位詞</p>
+            <ul>
+              <li v-for="hyper in sense.relations.hypernym">{{hyper[0]}}</li>
+            </ul>
+            <p v-if="sense.relations.hyponym">下位詞</p>
+            <ul>
+              <li v-for="hypo in sense.relations.hyponym">{{hypo[0]}}</li>
+            </ul>
+            <p v-if="sense.relations.varword">異體字</p>
+            <ul>
+              <li v-for="varword in sense.relations.varword">{{varword[0]}}</li>
+            </ul>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
    
 
-    </div>
+  </div>
   
   
   
@@ -265,7 +293,7 @@ body, html {
       <div class="w3-col" id="app_sense">
         <div class="w3-col w3-padding-large" v-for="sense in senses">
           <div class="w3-col">
-          <h4>釋義 {{senses.indexOf(sense)}}</h4> 
+          <h4>釋義 {{senses.indexOf(sense)+1}}</h4> 
             [ {{sense.pos}} ]  
             {{sense.def}}
           <h4>例句</h4>
