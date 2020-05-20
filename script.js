@@ -11,24 +11,31 @@ var vmtest= new Vue({
 $("#search").click(function(){
   const inputword = $("#inputword").val(); 
   const wordurl="http://140.112.147.120:5201/search/^"+ inputword + "$";
-  console.log(inputword);
-  console.log(wordurl);
   // 取得 lemma 資料
   $.ajax({
     url: wordurl,
     success: function(res){
       vmtest.items=(res);
       console.log(vmtest.items.length);
-      var senseid = vmtest.items[0].id;
-      console.log(senseid);
-      const senseidurl = "http://140.112.147.120:5201/senses/" + senseid ;
-      console.log(senseidurl);
-      $.ajax({
-        url: senseidurl,
-        success: function(datagot){
-          vmtest.sensedata=(datagot);
-        }
-      });
+      lemma_number = Array.from({length:vmtest.items.length}, (v,k)=>k);
+      console.log(lemma_number);
+      senseurl=[];
+      for (i in lemma_number){
+        var senseid = vmtest.items[i].id;
+        console.log(senseid);
+        const senseidurl = "http://140.112.147.120:5201/senses/" + senseid ;
+        senseurl.push(senseidurl);
+        console.log(senseurl);
+        senseurl.forEach(theurl => {
+          $.ajax({
+            url: theurl,
+            success: function(datagot){
+              vmtest.sensedata.push(datagot);
+            }
+          });
+        });
+        };
+
     }
   });
   
