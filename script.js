@@ -1,4 +1,4 @@
-// 查詢功能 還沒成功ＸＰ
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查詢功能 還沒成功...＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 var vmtest= new Vue({
   el: "#test",
   data: {
@@ -11,51 +11,51 @@ var vmtest= new Vue({
 $("#search").click(function(){
   const inputword = $("#inputword").val(); 
   const wordurl="http://140.112.147.120:5201/search/^"+ inputword + "$";
+  let senseurl=[]; //收集 senseid 建構的 url
+
   // 取得 lemma 資料
   $.ajax({
     url: wordurl,
     success: function(res){
       vmtest.items=(res);
-      console.log(vmtest.items.length);
+      console.log('根據搜尋字找到的資料筆數', vmtest.items.length);
       lemma_number = Array.from({length:vmtest.items.length}, (v,k)=>k);
       console.log(lemma_number);
-      senseurl=[];
+      //利用 lemma_number 取得 senseid 然後建構出 senseidurl 來做 sense 搜尋
       for (i in lemma_number){
-        var senseid = vmtest.items[i].id;
-        console.log(senseid);
+        const senseid = vmtest.items[i].id;
+        console.log('根據 lemma 找到 sense id number', senseid);
+        console.log(vmtest.items);
         const senseidurl = "http://140.112.147.120:5201/senses/" + senseid ;
-        senseurl.push(senseidurl);
-        console.log(senseurl);
-        senseurl.forEach(theurl => {
-          $.ajax({
-            url: theurl,
-            success: function(datagot){
-              vmtest.sensedata.push(datagot);
-            }
-          });
+        $.ajax({
+          url: senseidurl,
+          success: function(datagot){
+            vmtest.sensedata=(datagot); 
+            console.log('根據搜尋字找到的資料', vmtest.sensedata);
+          }
         });
-        };
+        
+        //同一個字型有兩個以上的 lemma 就做不出來... QQ
+        //例如「有」，ㄧㄡ ˋ有一個 sense ，一ㄡ ˇ有 7 個 sense ，但我還對不上...
+
+        senseurl.push(senseidurl); //把同一個 lemma 所有 senseidurl 存出來備用
+        console.log('根據 sense id number 找到 senseurl', senseurl);
+        
+      //for (idurl in senseurl){
+        //console.log("senseurl中的元件叫做 idurl,印出來是這樣", idurl);
+        //};
+
+
+        }; 
+        
 
     }
   });
-  
-
-  
-  // 取得 sense 資料
-
 })
 
 
-const wordapiurl="http://140.112.147.120:5201/search/^"+ inputword + "$"
-console.log(wordapiurl);
 
-
-
-
-
-
-
-// 查詢前就會出現的資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查詢前就會出現的資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // 查詢_api 網址
 var apiurl={
   itemdata: "http://140.112.147.120:5201/search/%5E%E8%A9%9E$",

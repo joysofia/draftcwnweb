@@ -238,8 +238,8 @@ body, html {
       <input id="inputword" type="text" v-model="word"/>
       <label id="search" class="i fas fa-search"></label>
     <h3 >剛才輸入的詞： {{ word }}</h3>
-  <div class="w3-col">  
-    <h4>新資料</h4>
+  <div class="w3-col m6">  
+    <h4>按下放大鏡icon後呈現的新資料</h4>
       <div class="w3-col w3-xxlarge w3-border w3-round-large w3-padding-large" v-for="item in items" >{{item.lemma}}
         <div class="w3-medium">{{item.zhuyin}}</div>
       </div>
@@ -279,7 +279,7 @@ body, html {
   <br>
   <br>
   <hr>
-  <h4>以下為按下查詢後的呈現範例 如 Our Skills 左右對開排版</h4>
+  <h4>以下為按下查詢後的呈現範例預覽樣子</h4>
     <!-- example -->
   <div class="w3-row-padding" id="appshow"><!-- 這個div需要做一個的on click -->
     <!-- 資料呈現 -->
@@ -325,33 +325,6 @@ body, html {
   </div>
 </div>
   
-
-<!-- Skills Section -->
-<div class="w3-container w3-light-grey w3-padding-64">
-  <div class="w3-row-padding">
-    <div class="w3-col m6">
-      <h3>Our Skills.</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>
-      tempor incididunt ut labore et dolore.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>
-      tempor incididunt ut labore et dolore.</p>
-    </div>
-    <div class="w3-col m6">
-      <p class="w3-wide"><i class="fa fa-camera w3-margin-right"></i>Photography</p>
-      <div class="w3-grey">
-        <div class="w3-container w3-dark-grey w3-center" style="width:90%">90%</div>
-      </div>
-      <p class="w3-wide"><i class="fa fa-desktop w3-margin-right"></i>Web Design</p>
-      <div class="w3-grey">
-        <div class="w3-container w3-dark-grey w3-center" style="width:85%">85%</div>
-      </div>
-      <p class="w3-wide"><i class="fa fa-photo w3-margin-right"></i>Photoshop</p>
-      <div class="w3-grey">
-        <div class="w3-container w3-dark-grey w3-center" style="width:75%">75%</div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Download Section -->
 <div class="w3-container" style="padding:128px 16px" id="download">
@@ -440,7 +413,7 @@ body, html {
     </div>
     <div class="w3-col m3 w3-text-left">
       <h5>關於</h5>
-      <a href="#Intro"><h6>CWN 簡介</h</a>6>
+      <a href="#Intro"><h6>CWN 簡介</h</a>
       <a href="#Peolple"><h6>相關人員</h6></a>
       <a href="#Research"><h6>研究發表</h6></a>
     </div>
